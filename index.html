@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MokeSell - Buy & Sell Easily</title>
+
+  <!-- Styles for index.html-->
+  <link rel="stylesheet" href="Codes/normalize.css">
+  <link rel="stylesheet" href="Codes/index.css">
+
+  <!-- Leaflet CSS & JS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+
+  <!-- Leaflet ExtraMarkers -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet-extra-markers/1.2.0/css/leaflet.extra-markers.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-extra-markers/1.2.0/js/leaflet.extra-markers.min.js"></script>
+
+  <!-- FontAwesome (needed for ExtraMarkers icons) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+
+  <!--Recaptcha API-->
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  <script>
+    function onSubmit(token) {
+        document.querySelector(".feedback-form").submit(); 
+    }
+  </script>
+
+</head>
+
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="logo">
+      <a href="/index.html">MokeSell.</a>
+    </div>
+    <nav class="nav">
+      <a href="/Codes/cart/cart.html" class="cart-link">
+        <i class="fas fa-shopping-cart"></i>
+        <span id="cart-count" class="cart-count">0</span> 
+      </a>
+      <a href="/Codes/about/about.html">About Us</a>
+      <a href="/index.html#customer-support">Customer Support</a>
+      <button class="login-btn" id="login-btn" onclick="location.href='/Codes/login/login.html'">
+        <i class="fas fa-user-circle"></i> Log In
+      </button>
+    </nav>
+</header>
+
+  <!-- Categories Navigation -->
+  <nav class="categories-nav">
+    <ul>
+      <li class="dropdown">
+        <a href="Codes/construction/construction.html">Electronics</a>
+        <ul class="dropdown-content">
+          <li><a href="Codes/construction/construction.html">Smartphones</a></li>
+          <li><a href="Codes/construction/construction.html">Laptops</a></li>
+          <li><a href="Codes/construction/construction.html">Gaming Consoles</a></li>
+          <li><a href="Codes/construction/construction.html">Headphones</a></li>
+          <li><a href="Codes/construction/construction.html">Cameras</a></li>
+        </ul>
+      </li>
+      <li class="dropdown">
+        <a href="Codes/construction/construction.html">Fashion</a>
+        <ul class="dropdown-content">
+          <li><a href="Codes/construction/construction.html">Men's Clothing</a></li>
+          <li><a href="Codes/construction/construction.html">Women's Clothing</a></li>
+          <li><a href="Codes/construction/construction.html">Shoes</a></li>
+          <li><a href="Codes/construction/construction.html">Accessories</a></li>
+        </ul>
+      </li>
+      <li class="dropdown">
+        <a href="Codes/construction/construction.html">Home & Living</a>
+        <ul class="dropdown-content">
+          <li><a href="Codes/construction/construction.html">Furniture</a></li>
+          <li><a href="Codes/construction/construction.html">Home Decor</a></li>
+          <li><a href="Codes/construction/construction.html">Kitchen Appliances</a></li>
+        </ul>
+      </li>
+      <li class="dropdown">
+        <a href="Codes/groceries/groceries.html">Groceries</a>
+        <ul class="dropdown-content">
+          <li><a href="Codes/construction/construction.html">Fruits & Vegetables</a></li>
+          <li><a href="Codes/construction/construction.html">Dairy Products</a></li>
+          <li><a href="Codes/construction/construction.html">Snacks & Confectionery</a></li>
+        </ul>
+      </li>
+      <li class="dropdown">
+        <a href="Codes/construction/construction.html">Books</a>
+        <ul class="dropdown-content">
+          <li><a href="Codes/construction/construction.html">Fiction</a></li>
+          <li><a href="Codes/construction/construction.html">Non-Fiction</a></li>
+          <li><a href="Codes/construction/construction.html">Manga</a></li>
+        </ul>
+      </li>
+      <li class="dropdown">
+        <a href="Codes/construction/construction.html">Beauty & Health</a>
+        <ul class="dropdown-content">
+          <li><a href="Codes/construction/construction.html">Skincare</a></li>
+          <li><a href="Codes/construction/construction.html">Haircare</a></li>
+          <li><a href="Codes/construction/construction.html">Makeup</a></li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- Search Bar -->
+  <div class="search-bar">
+    <input type="text" id="search-input" placeholder="Search for items, e.g., shoes, furniture, or milk">
+    <button id="search-btn"><i class="fas fa-search"></i> Search</button>
+  </div>
+
+<!-- Hero Section (Make sure it's NOT inside Swiper) -->
+<section class="hero">
+  <div class="hero-content">
+    <h1>Buy and Sell with Ease on MokeSell</h1>
+    <p>Find new and second-hand items, from fashion to furniture, and even groceries!</p>
+    <button onclick="window.location.href='/Codes/login/login.html'" class="cta-btn">
+      Start Selling Now
+    </button>
+      </div>
+</section>
+
+<!-- Featured Listings Section -->
+<section class="featured-products">
+  <h2>Featured Listings</h2>
+  <div id="featured-listings" class="grocery-container">
+      <!-- Products will be dynamically added here -->
+  </div>
+</section>
+
+
+
+<!-- Shop With Us Section -->
+<section class="shop-with-us">
+  <div class="shop-container">
+    <div class="shop-image">
+      <img src="/Codes/assets/mokesell-on-phone" alt="Shopping on MokeSell through Phone">
+    </div>
+    <div class="shop-text">
+      <h3>Save Time & Money</h3>
+      <h2>Shop With Us <br> on the Go</h2>
+      <p>Your weekly shopping routine, at your door in just a click.</p>
+      
+      <!-- App Store & Google Play Buttons with Links -->
+      <div class="app-buttons">
+        <a href="https://apps.apple.com/sg/app/shengsiong-sg/id1640843463" target="_blank" class="app-store">
+          <img src="Codes/assets/app-store.png" alt="Download on the App Store">
+        </a>
+        <a href="https://play.google.com/store/apps/details?id=com.shengsiong.online&hl=en_SG" target="_blank" class="google-play">
+          <img src="Codes/assets/google-play.png" alt="Get it on Google Play">
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+  <!-- Map -->
+  <section class="map-section">
+    <h2 class="map-title">Find Us on the Map</h2>
+    <div id="map"></div>
+  </section>
+
+  <!-- Customer Support Section -->
+<section id="customer-support" class="customer-support">
+  <h2>MokeSell Customer Support</h2>  
+
+  <!-- Support Options -->
+  <div class="support-options">
+    <a href="Codes/feedback/customer-feedback.html" class="support-box">
+      <i class="fas fa-comment-dots"></i>
+      <p>Feedback Form</p>
+    </a>
+    <a href="Codes/feedback/customer-feedback.html" class="support-box">
+      <i class="fas fa-box-open"></i>
+      <p>Lost and Found</p>
+    </a>
+    <a href="Codes/feedback/customer-feedback.html" class="support-box">
+      <i class="fas fa-heart"></i>
+      <p>Compliment Us</p>
+    </a>
+  </div>
+
+  <!-- Contact Information -->
+  <div class="support-contact">
+    <div class="contact-item">
+      <i class="fas fa-phone"></i>
+      <span>1800 1234 5678</span>
+    </div>
+    <p class="support-note">(Only within Singapore / mobile air-time charges may be imposed by relevant Service Providers)</p>
+  
+    <div class="contact-item">
+      <i class="fas fa-clock"></i>
+      <span>9:00am - 10:00pm Daily</span>
+    </div>
+  </div>
+</section>
+
+  <!-- Footer -->
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-top">
+      <!-- Left Section: Company Info -->
+      <div class="footer-left">
+        <h2><a href="index.html" class="logo-link">MokeSell.</a></h2>
+        <p><strong>Need Help?</strong></p>
+        <p>Visit our <a href="Codes/feedback/customer-feedback.html">Customer Support</a> for assistance or call our Hotline at</p>
+        <p class="phone-number">1800 1234 5678</p>
+        
+        <!-- Social Media Icons (Repositioned) -->
+        <div class="footer-social">
+          <a href="https://www.facebook.com/" target="_blank"><i class="fab fa-facebook"></i></a>
+          <a href="https://x.com/home" target="_blank"><i class="fab fa-twitter"></i></a>
+          <a href="https://www.instagram.com/" target="_blank"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+
+      <!-- Categories Column -->
+      <div class="footer-column">
+        <h4>Categories</h4>
+        <ul class="menu-list">
+          <li class="dropdown"><a href="Codes/construction/construction.html">Electronics</a>
+            <ul class="submenu">
+              <li><a href="Codes/construction/construction.html">Smartphones</a></li>
+              <li><a href="Codes/construction/construction.html">Laptops</a></li>
+              <li><a href="Codes/construction/construction.html">Gaming Consoles</a></li>
+              <li><a href="Codes/construction/construction.html">Headphones</a></li>
+              <li><a href="Codes/construction/construction.html">Cameras</a></li>
+            </ul>
+          </li>
+          <li class="dropdown"><a href="Codes/construction/construction.html">Fashion</a>
+            <ul class="submenu">
+              <li><a href="Codes/construction/construction.html">Men's Clothing</a></li>
+              <li><a href="Codes/construction/construction.html">Women's Clothing</a></li>
+              <li><a href="Codes/construction/construction.html">Shoes</a></li>
+              <li><a href="Codes/construction/construction.html">Accessories</a></li>
+            </ul>
+          </li>
+          <li class="dropdown"><a href="Codes/construction/construction.html">Home & Living</a>
+            <ul class="submenu">
+              <li><a href="Codes/construction/construction.html">Furniture</a></li>
+              <li><a href="Codes/construction/construction.html">Home Decor</a></li>
+              <li><a href="Codes/construction/construction.html">Kitchen Appliances</a></li>
+            </ul>
+          </li>
+          <li class="dropdown"><a href="/Codes/groceries/groceries.html">Groceries</a>
+            <ul class="submenu">
+              <li><a href="Codes/construction/construction.html">Fruits & Vegetables</a></li>
+              <li><a href="Codes/construction/construction.html">Dairy Products</a></li>
+              <li><a href="Codes/construction/construction.html">Snacks & Confectionery</a></li>
+            </ul>
+          </li>
+          <li class="dropdown"><a href="Codes/construction/construction.html">Books</a>
+            <ul class="submenu">
+              <li><a href="Codes/construction/construction.html">Fiction</a></li>
+              <li><a href="Codes/construction/construction.html">Non-Fiction</a></li>
+              <li><a href="Codes/construction/construction.html">Manga</a></li>
+            </ul>
+          </li>
+          <li class="dropdown"><a href="Codes/construction/construction.html">Beauty & Health</a>
+            <ul class="submenu">
+              <li><a href="Codes/construction/construction.html">Skincare</a></li>
+              <li><a href="Codes/construction/construction.html">Makeup</a></li>
+              <li><a href="Codes/construction/construction.html">Haircare</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Info Column -->
+      <div class="footer-column">
+        <h4>Info</h4>
+        <ul class="menu-list">
+          <li><a href="/Codes/privacy-policy/privacy.html">Privacy Policy</a></li>
+          <li><a href="/Codes/terms-of-service/terms.html">Terms of Service</a></li>
+          <li><a href="/Codes/feedback/customer-feedback.html">Contact Us</a></li>
+          <li><a href="/Codes/faq/faq.html">FAQs</a></li>
+        </ul>
+      </div>
+
+      <!-- My Choice Column -->
+      <div class="footer-column">
+        <h4>My Choice</h4>
+        <ul class="menu-list">
+          <li><a href="#">Favorites</a></li>
+          <li><a href="#">My Orders</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <hr />
+
+    <!-- Payment & Policies Section -->
+    <div class="footer-payment-section">
+      <div class="footer-links">
+        <a href="Codes/shipping-returns/shipping-returns.html">Shipping & Returns</a>
+        <a href="Codes/terms-of-service/terms.html">Terms & Conditions</a>
+        <a href="Codes/payment-mtd/payment-mtd.html">Payment Methods</a>
+      </div>
+
+    <!-- Payment Methods Section -->
+    <p class="payment-title">We accept the following payment methods</p>
+    <div class="payment-icons">
+      <img src="Codes/assets/mastercard.png" alt="Mastercard">
+      <img src="Codes/assets/american-express.png" alt="American Express">
+      <img src="Codes/assets/unionpay.png" alt="UnionPay">
+      <img src="Codes/assets/jcb.png" alt="JCB">
+      <img src="Codes/assets/visa.png" alt="Visa">
+      <img src="Codes/assets/paypal.png" alt="PayPal">
+      <img src="Codes/assets/dinersclub.png" alt="Diners Club">
+    </div>
+
+  </div>
+</footer>
+
+<!-- Copyright Section (Completely Separate from Footer) -->
+<div class="footer-bottom">
+  <p>&copy; 2025 MokeSell. All rights reserved.</p>
+</div>
+
+</footer>
+
+<!-- Include JavaScript -->
+<script src="/Codes/index.js"></script>
+<script type="module" src="/Codes/cart/cart-counter.js"></script>
+<script type="module" src="/Codes/featured.js"></script>
+
+
+</body>
+</html>

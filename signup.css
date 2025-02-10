@@ -1,0 +1,123 @@
+/* Fix sign-up box spacing */
+.signup-container {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 400px;
+    margin: 40px auto 40px auto; /* Adds extra space at the bottom */
+}
+
+/* Input field styling */
+input {
+    width: 90%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Sign Up Button Specific Styles */
+.signup-btn {
+  width: 100%;
+  padding: 14px;
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+  background: #6a0dad;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.signup-btn:hover {
+  background: #5a0ba2;
+  transform: scale(1.05);
+}
+
+  /* TERMS CONTAINER */
+  .terms-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px; /* Adds spacing between checkbox and text */
+    font-size: 14px;
+  }
+
+  /* Aligns checkbox vertically */
+  .terms-container input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: #6a0dad; /* Make checkbox purple */
+  }
+
+  /* Link Styling */
+  .terms-container label a {
+    color: #6a0dad;
+    font-weight: bold;
+    text-decoration: none;
+  }
+
+  .terms-container label a:hover {
+    text-decoration: underline;
+  }
+
+  /* ERROR MESSAGE */
+  #error-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 10px;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  /* LINK STYLING */
+p a {
+  color: #6a0dad; /* Matches the purple theme */
+  font-weight: bold;
+  text-decoration: none; /* Removes default underline */
+  transition: color 0.3s ease-in-out;
+}
+
+p a:hover {
+  text-decoration: underline;
+  color: #5a0ba2; /* Slightly darker purple on hover */
+}
+
+
+/* Overlay (Dimming Background) */
+.overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* 50% opacity */
+  z-index: 1000;
+}
+
+
+
+/* Success & Error Pop-up */
+.success-popup {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+  font-size: 18px;
+  font-weight: bold;
+  z-index: 1001;
+}
+
+.success-popup {
+  color: green;
+}
